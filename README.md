@@ -1,4 +1,10 @@
 <div align="center">
+  <img height="200" src="https://media.tenor.com/WlJsOVX2lysAAAAi/cat-tongue-cat.gif"  />
+</div>
+
+###
+
+<div align="center">
   <img src="https://skillicons.dev/icons?i=js" height="40" alt="javascript logo"  />
   <img width="5" />
   <img src="https://skillicons.dev/icons?i=ts" height="40" alt="typescript logo"  />
@@ -50,13 +56,5 @@
   <img src="https://github-readme-stats.vercel.app/api?username=reyxdz&hide_title=true&hide_rank=true&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dark&locale=en&hide_border=true&order=1" height="150" alt="stats graph"  />
   <img src="https://github-readme-stats.vercel.app/api/top-langs?username=reyxdz&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=6&theme=dark&hide_border=true&order=2" height="150" alt="languages graph"  />
 </div>
-
-###
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/reyxdz/reyxdz/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/reyxdz/reyxdz/output/pacman-contribution-graph.svg">
-  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/reyxdz/reyxdz/output/pacman-contribution-graph.svg">
-</picture>
 
 ###
