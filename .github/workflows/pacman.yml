@@ -1,1 +1,26 @@
+name: Pacman Contribution Graph
 
+on:
+  schedule:
+    - cron: '0 0 * * *'   # runs daily at midnight UTC
+  workflow_dispatch:       # allows manual trigger from Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate Pacman Contribution Graph
+        uses: abozanona/pacman-contribution-graph@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output/
+          git commit -m "Update Pacman contribution graph"
+          git push
