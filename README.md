@@ -4,7 +4,8 @@
 
 ###
 
-<div align="center">
+<div align="left">
+  <h2 style="font-weight: 800; margin-bottom: 15px;">Techstack</h2>
   <img src="https://skillicons.dev/icons?i=js" height="40" alt="javascript logo"  />
   <img width="5" />
   <img src="https://skillicons.dev/icons?i=ts" height="40" alt="typescript logo"  />
