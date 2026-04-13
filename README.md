@@ -10,7 +10,11 @@
   <img width="5" />
   <img src="https://skillicons.dev/icons?i=java" height="40" alt="java logo"  />
   <img width="5" />
+  <img src="https://skillicons.dev/icons?i=spring" height="40" alt="spring logo"  />
+  <img width="5" />
   <img src="https://skillicons.dev/icons?i=php" height="40" alt="php logo"  />
+  <img width="5" />
+  <img src="https://skillicons.dev/icons?i=laravel" height="40" alt="laravel logo"  />
   <img width="5" />
   <img src="https://skillicons.dev/icons?i=dart" height="40" alt="dart logo"  />
   <img width="5" />
