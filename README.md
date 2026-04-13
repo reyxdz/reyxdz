@@ -58,16 +58,12 @@
 ###
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" width="50" />
   <img src="https://my-github-readme-stats-flax.vercel.app/api?username=reyxdz&hide_title=true&hide_rank=true&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dark&locale=en&hide_border=true&order=1" height="150" alt="stats graph"  />
   <img src="https://my-github-readme-stats-flax.vercel.app/api/top-langs?username=reyxdz&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=6&theme=dark&hide_border=true&order=2" height="150" alt="languages graph"  />
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Flying%20Saucer.png" width="50" />
 </div>
 
 ###
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkles.png" width="50" />
   <img height="200" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW15NHZzd3l2eTI3YTQyMjQwZzY5NHk3dHE4OXJ0aHdxaHZ1a2JkdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2ViZJi3RLXAZ22PG08/giphy.gif" />
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkles.png" width="50" />
 </div>
