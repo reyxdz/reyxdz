@@ -1,4 +1,4 @@
-<div align="left">
+<div align="center">
   <h2 style="font-weight: 800; margin-bottom: 15px;">Techstack</h2>
   <img src="https://skillicons.dev/icons?i=js" height="40" alt="javascript logo"  />
   <img width="5" />
