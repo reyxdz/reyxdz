@@ -9,7 +9,7 @@
         aria-labelledby="descId"
       >
         <title id="titleId">StackOverRey&#39;s GitHub Stats, Rank: A</title>
-        <desc id="descId">Total Stars Earned: 1086, Total Commits  : 1958, Total PRs: 88, Total Issues: 70, Contributed to (last year): 6</desc>
+        <desc id="descId">Total Stars Earned: 1086, Total Commits  : 1969, Total PRs: 101, Total Issues: 74, Contributed to (last year): 6</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 38.08027694909086;
+        stroke-dashoffset: 34.623384325890534;
       }
     }
   
@@ -174,7 +174,7 @@
         x="224.01"
         y="12.5"
         data-testid="prs"
-      >88</text>
+      >101</text>
     </g>
   </g><g transform="translate(0, 75)">
     <g class="stagger" style="animation-delay: 900ms" transform="translate(25, 0)">
@@ -189,7 +189,7 @@
         x="224.01"
         y="12.5"
         data-testid="issues"
-      >70</text>
+      >74</text>
     </g>
   </g><g transform="translate(0, 100)">
     <g class="stagger" style="animation-delay: 1050ms" transform="translate(25, 0)">
