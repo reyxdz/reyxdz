@@ -31,31 +31,41 @@ jobs:
             "$GH_ASCII_URL/$HANDLE?theme=light" \
             -o light_mode.svg
 
-      # gh-ascii only reports coding languages; rewrite to spoken languages.
-      - name: Use spoken languages
+      # gh-ascii customizations: spoken languages + email instead of GitHub URL.
+      - name: Apply card customizations
         run: |
           python3 <<'PY'
           from pathlib import Path
           import re
 
-          NEW = " English, Filipino, Bisayawa"
-          DOTS = "." * 15
-          pattern = re.compile(
+          lang_pattern = re.compile(
               r'(<tspan fill="[^"]+">\. Languages: </tspan><tspan fill="[^"]+">)'
               r'[.]+'
               r'(</tspan><tspan fill="[^"]+">)'
               r'[^<]*'
               r'(</tspan>)'
           )
-          replacement = rf"\g<1>{DOTS}\g<2>{NEW}\g<3>"
+          lang_repl = rf'\g<1>{"." * 15}\g<2> English, Filipino, Bisayawa\g<3>'
+
+          contact_pattern = re.compile(
+              r'(<tspan fill="[^"]+">)\. GitHub: (</tspan><tspan fill="[^"]+">)'
+              r'[.]+'
+              r'(</tspan><tspan fill="[^"]+">)'
+              r'[^<]*'
+              r'(</tspan>)'
+          )
+          contact_repl = (
+              rf'\g<1>. Email: \g<2>{"." * 28}\g<3> reyfdenzo@gmail.com\g<4>'
+          )
 
           for name in ("dark_mode.svg", "light_mode.svg"):
               path = Path(name)
               text = path.read_text(encoding="utf-8")
-              updated, n = pattern.subn(replacement, text, count=1)
-              if n != 1:
-                  raise SystemExit(f"failed to patch Languages in {name}")
-              path.write_text(updated, encoding="utf-8")
+              text, n1 = lang_pattern.subn(lang_repl, text, count=1)
+              text, n2 = contact_pattern.subn(contact_repl, text, count=1)
+              if n1 != 1 or n2 != 1:
+                  raise SystemExit(f"failed patches in {name}: lang={n1} contact={n2}")
+              path.write_text(text, encoding="utf-8", newline="\n")
               print(f"patched {name}")
           PY
 
