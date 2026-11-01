@@ -31,6 +31,34 @@ jobs:
             "$GH_ASCII_URL/$HANDLE?theme=light" \
             -o light_mode.svg
 
+      # gh-ascii only reports coding languages; rewrite to spoken languages.
+      - name: Use spoken languages
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          NEW = " English, Filipino, Bisaya"
+          DOTS = "." * 17
+          pattern = re.compile(
+              r'(<tspan fill="[^"]+">\. Languages: </tspan><tspan fill="[^"]+">)'
+              r'[.]+'
+              r'(</tspan><tspan fill="[^"]+">)'
+              r'[^<]*'
+              r'(</tspan>)'
+          )
+          replacement = rf"\g<1>{DOTS}\g<2>{NEW}\g<3>"
+
+          for name in ("dark_mode.svg", "light_mode.svg"):
+              path = Path(name)
+              text = path.read_text(encoding="utf-8")
+              updated, n = pattern.subn(replacement, text, count=1)
+              if n != 1:
+                  raise SystemExit(f"failed to patch Languages in {name}")
+              path.write_text(updated, encoding="utf-8")
+              print(f"patched {name}")
+          PY
+
       - name: Commit only if the card changed
         run: |
           git config user.name "github-actions[bot]"
