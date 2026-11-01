@@ -1,69 +1,14 @@
-<div align="center">
-  <h2 style="font-weight: 800; margin-bottom: 15px;">Techstack</h2>
-  <img src="https://skillicons.dev/icons?i=js" height="40" alt="javascript logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=ts" height="40" alt="typescript logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=ruby" height="40" alt="ruby logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=rails" height="40" alt="rails logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=java" height="40" alt="java logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=spring" height="40" alt="spring logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=php" height="40" alt="php logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=laravel" height="40" alt="laravel logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=dart" height="40" alt="dart logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=flutter" height="40" alt="flutter logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=react" height="40" alt="react logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=nextjs" height="40" alt="nextjs logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=nodejs" height="40" alt="nodejs logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=tailwind" height="40" alt="tailwindcss logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=bootstrap" height="40" alt="bootstrap logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=docker" height="40" alt="docker logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=mongodb" height="40" alt="mongodb logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=postgres" height="40" alt="postgresql logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=mysql" height="40" alt="mysql logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=firebase" height="40" alt="firebase logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=git" height="40" alt="git logo"  />
-  <img width="5" />
-  <img src="https://skillicons.dev/icons?i=github" height="40" alt="github logo"  />
+<div>
+  <a href="https://github.com/reyxdz/reyxdz">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/reyxdz/reyxdz/main/dark_mode.svg">
+      <img alt="reyxdz" src="https://raw.githubusercontent.com/reyxdz/reyxdz/main/light_mode.svg">
+    </picture>
+  </a>
 </div>
 
-###
-
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/reyxdz/reyxdz/output/pacman-contribution-graph-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/reyxdz/reyxdz/output/pacman-contribution-graph.svg">
-    <img alt="Pac-Man contribution graph" src="https://raw.githubusercontent.com/reyxdz/reyxdz/output/pacman-contribution-graph.svg">
-  </picture>
-</p>
-
-###
+<img src="https://capsule-render.vercel.app/api?type=rect&color=aeb7c260&height=2" width="100%"/>
 
 <div align="center">
-  <img src="./profile/stats.svg" height="150" alt="stats graph" />
-  <img src="./profile/top-langs.svg" height="150" alt="languages graph" />
-</div>
-
-###
-
-<div align="center">
-  <img height="200" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW15NHZzd3l2eTI3YTQyMjQwZzY5NHk3dHE4OXJ0aHdxaHZ1a2JkdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2ViZJi3RLXAZ22PG08/giphy.gif" />
+  <img src="https://github-metrics-incog.vercel.app/api?username=reyxdz&theme=github_dark&profile=false" alt="GitHub Analytics" />
 </div>
