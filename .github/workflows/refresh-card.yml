@@ -38,8 +38,8 @@ jobs:
           from pathlib import Path
           import re
 
-          NEW = " English, Filipino, Bisaya"
-          DOTS = "." * 17
+          NEW = " English, Filipino, Bisayawa"
+          DOTS = "." * 15
           pattern = re.compile(
               r'(<tspan fill="[^"]+">\. Languages: </tspan><tspan fill="[^"]+">)'
               r'[.]+'
