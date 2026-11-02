@@ -1,0 +1,54 @@
+# Daily refresh for analytics cards; forces General Statistics rating to S+.
+name: Refresh metrics card
+
+on:
+  schedule:
+    - cron: "27 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-metrics-card
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download metrics SVG
+        run: |
+          curl -fsSL --retry 3 --retry-delay 5 \
+            "https://github-metrics-incog.vercel.app/api?username=reyxdz&theme=github_dark&profile=false" \
+            -o metrics.svg
+
+      - name: Force rating to S+
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+
+          path = Path("metrics.svg")
+          text = path.read_text(encoding="utf-8")
+          if ">A+</text>" not in text and ">S+</text>" not in text:
+              raise SystemExit("rating text not found in metrics.svg")
+          updated = text.replace(">A+</text>", ">S+</text>", 1)
+          if ">S+</text>" not in updated:
+              raise SystemExit("failed to set S+ rating")
+          path.write_text(updated, encoding="utf-8", newline="\n")
+          print("rating set to S+")
+          PY
+
+      - name: Commit only if the card changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add metrics.svg
+          if git diff --cached --quiet; then
+            echo "Metrics unchanged — nothing to commit."
+          else
+            git commit -m "chore: refresh metrics card"
+            git push
+          fi
