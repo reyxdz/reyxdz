@@ -31,7 +31,7 @@ jobs:
             "$GH_ASCII_URL/$HANDLE?theme=light" \
             -o light_mode.svg
 
-      # Customizations: spoken languages, email, and drop the contribution sparkline.
+      # Customizations: spoken languages, email, and right-align the sparkline.
       - name: Apply card customizations
         run: |
           python3 <<'PY'
@@ -58,22 +58,37 @@ jobs:
               rf'\g<1>. Email: \g<2>{"." * 28}\g<3> reyfdenzo@gmail.com\g<4>'
           )
 
-          sparkline_pattern = re.compile(
-              r'\n?[ \t]*<text[^>]*>\s*<tspan fill="#[0-9a-fA-F]+">[^<]*'
-              r'[\u2581-\u2588][^<]*</tspan>\s*</text>',
-              re.S,
+          sparkline_tspan = re.compile(
+              r'(<tspan fill="#[0-9a-fA-F]+">)([^<]*[\u2581-\u2588][^<]*)(</tspan>)'
           )
+
+          def align_sparkline(text: str) -> str:
+              priv_m = re.search(r'<text[^>]*y="423"[^>]*>(.*?)</text>', text, re.S)
+              if not priv_m:
+                  raise SystemExit("Private row missing")
+              target_len = len(re.sub(r"<[^>]+>", "", priv_m.group(1)))
+
+              def repl(match: re.Match[str]) -> str:
+                  body = match.group(2).lstrip(" ")
+                  pad = max(0, target_len - len(body))
+                  aligned = (" " * pad) + body
+                  if len(aligned) > target_len:
+                      aligned = aligned[-target_len:]
+                  return f"{match.group(1)}{aligned}{match.group(3)}"
+
+              updated, n = sparkline_tspan.subn(repl, text, count=1)
+              if n != 1:
+                  raise SystemExit("sparkline not found")
+              return updated
 
           for name in ("dark_mode.svg", "light_mode.svg"):
               path = Path(name)
               text = path.read_text(encoding="utf-8")
               text, n1 = lang_pattern.subn(lang_repl, text, count=1)
               text, n2 = contact_pattern.subn(contact_repl, text, count=1)
-              text, n3 = sparkline_pattern.subn("", text, count=1)
-              if n1 != 1 or n2 != 1 or n3 != 1:
-                  raise SystemExit(
-                      f"failed patches in {name}: lang={n1} contact={n2} sparkline={n3}"
-                  )
+              if n1 != 1 or n2 != 1:
+                  raise SystemExit(f"failed patches in {name}: lang={n1} contact={n2}")
+              text = align_sparkline(text)
               path.write_text(text, encoding="utf-8", newline="\n")
               print(f"patched {name}")
           PY
