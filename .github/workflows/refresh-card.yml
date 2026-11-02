@@ -31,7 +31,7 @@ jobs:
             "$GH_ASCII_URL/$HANDLE?theme=light" \
             -o light_mode.svg
 
-      # gh-ascii customizations: spoken languages + email instead of GitHub URL.
+      # Customizations: spoken languages, email, and drop the contribution sparkline.
       - name: Apply card customizations
         run: |
           python3 <<'PY'
@@ -58,13 +58,22 @@ jobs:
               rf'\g<1>. Email: \g<2>{"." * 28}\g<3> reyfdenzo@gmail.com\g<4>'
           )
 
+          sparkline_pattern = re.compile(
+              r'\n?[ \t]*<text[^>]*>\s*<tspan fill="#[0-9a-fA-F]+">[^<]*'
+              r'[\u2581-\u2588][^<]*</tspan>\s*</text>',
+              re.S,
+          )
+
           for name in ("dark_mode.svg", "light_mode.svg"):
               path = Path(name)
               text = path.read_text(encoding="utf-8")
               text, n1 = lang_pattern.subn(lang_repl, text, count=1)
               text, n2 = contact_pattern.subn(contact_repl, text, count=1)
-              if n1 != 1 or n2 != 1:
-                  raise SystemExit(f"failed patches in {name}: lang={n1} contact={n2}")
+              text, n3 = sparkline_pattern.subn("", text, count=1)
+              if n1 != 1 or n2 != 1 or n3 != 1:
+                  raise SystemExit(
+                      f"failed patches in {name}: lang={n1} contact={n2} sparkline={n3}"
+                  )
               path.write_text(text, encoding="utf-8", newline="\n")
               print(f"patched {name}")
           PY
