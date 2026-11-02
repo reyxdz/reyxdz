@@ -60,6 +60,22 @@ jobs:
               rf'\g<1>. Email: \g<2>{"." * 28}\g<3> reyfdenzo@gmail.com\g<4>'
           )
 
+          portfolio_pattern = re.compile(
+              r'(<tspan fill="[^"]+">)\. Website: (</tspan><tspan fill="[^"]+">)'
+              r'[.]+'
+              r'(</tspan><tspan fill="[^"]+">)'
+              r'([^<]*)'
+              r'(</tspan>)'
+          )
+
+          def portfolio_repl(match: re.Match[str]) -> str:
+              value = match.group(4)
+              dots_n = max(1, 57 - len(". Portfolio: ") - len(value))
+              return (
+                  f"{match.group(1)}. Portfolio: {match.group(2)}"
+                  f"{'.' * dots_n}{match.group(3)}{value}{match.group(5)}"
+              )
+
           sparkline_text = re.compile(
               r'<text([^>]*)y="443"([^>]*)>(.*?)</text>',
               re.S,
@@ -107,8 +123,11 @@ jobs:
               text = path.read_text(encoding="utf-8")
               text, n1 = lang_pattern.subn(lang_repl, text, count=1)
               text, n2 = contact_pattern.subn(contact_repl, text, count=1)
-              if n1 != 1 or n2 != 1:
-                  raise SystemExit(f"failed patches in {name}: lang={n1} contact={n2}")
+              text, n3 = portfolio_pattern.subn(portfolio_repl, text, count=1)
+              if n1 != 1 or n2 != 1 or n3 != 1:
+                  raise SystemExit(
+                      f"failed patches in {name}: lang={n1} contact={n2} portfolio={n3}"
+                  )
               text = align_sparkline(text)
               path.write_text(text, encoding="utf-8", newline="\n")
               print(f"patched {name}")
