@@ -31,12 +31,14 @@ jobs:
             "$GH_ASCII_URL/$HANDLE?theme=light" \
             -o light_mode.svg
 
-      # Customizations: spoken languages, email, and right-align the sparkline.
+      # Customizations: spoken languages, email, sparkline width-locked to Private row.
       - name: Apply card customizations
         run: |
           python3 <<'PY'
           from pathlib import Path
           import re
+
+          CHAR_EM = 0.6  # Consolas/Menlo advance width
 
           lang_pattern = re.compile(
               r'(<tspan fill="[^"]+">\. Languages: </tspan><tspan fill="[^"]+">)'
@@ -58,6 +60,10 @@ jobs:
               rf'\g<1>. Email: \g<2>{"." * 28}\g<3> reyfdenzo@gmail.com\g<4>'
           )
 
+          sparkline_text = re.compile(
+              r'<text([^>]*)y="443"([^>]*)>(.*?)</text>',
+              re.S,
+          )
           sparkline_tspan = re.compile(
               r'(<tspan fill="#[0-9a-fA-F]+">)([^<]*[\u2581-\u2588][^<]*)(</tspan>)'
           )
@@ -66,19 +72,34 @@ jobs:
               priv_m = re.search(r'<text[^>]*y="423"[^>]*>(.*?)</text>', text, re.S)
               if not priv_m:
                   raise SystemExit("Private row missing")
-              target_len = len(re.sub(r"<[^>]+>", "", priv_m.group(1)))
+              priv_plain = re.sub(r"<[^>]+>", "", priv_m.group(1))
+              fs_m = re.search(r'<text[^>]*y="423"[^>]*font-size="([^"]+)"', text)
+              if not fs_m:
+                  fs_m = re.search(r'<text[^>]*font-size="([^"]+)"[^>]*y="423"', text)
+              font_size = float(fs_m.group(1)) if fs_m else 16.0
+              target_width = round(len(priv_plain) * font_size * CHAR_EM, 2)
 
-              def repl(match: re.Match[str]) -> str:
-                  body = match.group(2).lstrip(" ")
-                  pad = max(0, target_len - len(body))
-                  aligned = (" " * pad) + body
-                  if len(aligned) > target_len:
-                      aligned = aligned[-target_len:]
-                  return f"{match.group(1)}{aligned}{match.group(3)}"
+              def repl_text(match: re.Match[str]) -> str:
+                  attrs = match.group(1) + match.group(2)
+                  body = match.group(3)
+                  # strip old textLength/lengthAdjust if present
+                  attrs = re.sub(r'\s*textLength="[^"]*"', "", attrs)
+                  attrs = re.sub(r'\s*lengthAdjust="[^"]*"', "", attrs)
+                  attrs = attrs.rstrip() + (
+                      f' textLength="{target_width}" lengthAdjust="spacingAndGlyphs"'
+                  )
 
-              updated, n = sparkline_tspan.subn(repl, text, count=1)
+                  def repl_tspan(tm: re.Match[str]) -> str:
+                      return f"{tm.group(1)}{tm.group(2).strip(' ')}{tm.group(3)}"
+
+                  body2, n = sparkline_tspan.subn(repl_tspan, body, count=1)
+                  if n != 1:
+                      raise SystemExit("sparkline tspan missing on y=443")
+                  return f"<text{attrs}>{body2}</text>"
+
+              updated, n = sparkline_text.subn(repl_text, text, count=1)
               if n != 1:
-                  raise SystemExit("sparkline not found")
+                  raise SystemExit("sparkline text row y=443 missing")
               return updated
 
           for name in ("dark_mode.svg", "light_mode.svg"):
